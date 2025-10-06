@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+
+  <title>Rock Paper Scissors</title>
+</head>
+<body>
+  <header>
+    <p class="title">
+      Rock, Paper, Scissors!
+    </p>
+  </header>
+
+  <main>
+    <section class="hand" id="left">
+      <div class="hand-emojis">
+        <p class="fist">✊</p>
+        <p class="below-hand">🫴</p>
+      </div>
+      <p class="player-title">You</p>
+    </section>
+    <section class="choices">
+      <button class="btn | choice" id="rock">🪨</button>
+      <button class="btn | choice" id="paper">📃</button>
+      <button class="btn | choice" id="scissors">✂️</button>
+    </section>
+    <section class="hand" id="right">
+      <div class="hand-emojis">
+        <p class="fist">✊</p>
+        <p class="below-hand">🫴</p>
+      </div>
+      <p class="player-title">PC</p>
+    </section>
+  </main>
+
+  <section class="announcer">
+    <p class="result">Pick a move.</p>
+    <button class="btn | next">Play again</button>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>

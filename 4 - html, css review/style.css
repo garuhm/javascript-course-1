@@ -1,0 +1,15 @@
+button {
+  color: white;
+  background-color: black;
+
+  padding: 0.5rem 1.15rem;
+  border: 0;
+  border-radius: 30px;
+
+  cursor: pointer;
+}
+
+.in-text {
+  color: rgb(232, 232, 255);
+  background-color: rgb(0, 0, 50);
+}

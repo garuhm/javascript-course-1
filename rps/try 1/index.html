@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+
+  <title>Rock Paper Scissors</title>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <p class="title">
+        Rock, Paper, Scissors!
+      </p>
+    </header>
+
+    <section class="announcer mobile">
+      <p class="result">Pick a move</p>
+      <button class="next">Play again</button>
+    </section>
+
+    <main>
+      <section class="hand" id="left">
+        <div class="hand-emojis">
+          <p class="fist">✊</p>
+          <p class="below-hand">🫴</p>
+        </div>
+        <div class="mobile-fist-container">
+          <p class="fist mobile">✊</p>
+        </div>
+        <p class="player-title">You</p>
+        <p class="player-title mobile">You</p>
+      </section>
+      <section class="choices">
+        <button class="choice" id="rock">🪨</button>
+        <button class="choice" id="paper">📃</button>
+        <button class="choice" id="scissors">✂️</button>
+      </section>
+      <section class="choices mobile" id="smaller-mobile">
+        <button class="choice" id="rock">🪨</button>
+        <button class="choice" id="paper">📃</button>
+        <button class="choice" id="scissors">✂️</button>
+      </section>
+      <section class="hand" id="right">
+        <div class="hand-emojis">
+          <p class="fist">✊</p>
+          <p class="below-hand">🫴</p>
+        </div>
+        <div class="mobile-fist-container">
+          <p class="fist mobile">✊</p>
+        </div>
+        <p class="player-title">PC</p>
+        <p class="player-title mobile">PC</p>
+      </section>
+    </main>
+
+    <section class="choices mobile" id="bigger-mobile">
+        <button class="choice" id="rock">🪨</button>
+        <button class="choice" id="paper">📃</button>
+        <button class="choice" id="scissors">✂️</button>
+      </section>
+  
+    <section class="announcer">
+      <p class="result">Pick a move.</p>
+      <button class="next">Play again</button>
+    </section>
+    
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
