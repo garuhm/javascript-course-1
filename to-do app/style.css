@@ -165,9 +165,11 @@ body{
   border: var(--glass-border-thickness) var(--clr-neutral-border) solid;
   border-radius: var(--glass-border-radius);
   padding: 13px clamp(7px, 9.547vw, 61px);
+  padding-top: 16px;
 
   display: grid;
   grid-template-rows: 42.59px 1fr 0fr;
+  gap: 7px;
 
   height: max(72vh, fit-content);
   max-height: 72vh;
@@ -177,32 +179,38 @@ body{
 }
 
 /* for reset and adding new */
-.adding {
+.todo-container.adding {
   animation: addTransition 1 1.6s ease forwards; 
 }
-.going-back {
+.todo-container.going-back {
   animation: removeTransition 1 1.6s ease forwards; 
 }
 @keyframes addTransition {
   0% {
-     grid-template-rows: 42.59px 1fr 0fr;
+    gap: 7px;
+    grid-template-rows: 42.59px 1fr 0fr;
   }
   40% {
-     grid-template-rows: 42.59px 0fr 0fr;
+    gap: 0px;
+    grid-template-rows: 42.59px 0fr 0fr;
   }
   100% {
-     grid-template-rows: 42.59px 0fr 1fr;
+    gap: 7px;
+    grid-template-rows: 42.59px 0fr 1fr;
   }
 } 
 @keyframes removeTransition {
   0% {
-     grid-template-rows: 42.59px 0fr 1fr;
+    gap: 7px;
+    grid-template-rows: 42.59px 0fr 1fr;
   }
   40% {
-     grid-template-rows: 42.59px 0fr 0fr;
+    gap: 0px;
+    grid-template-rows: 42.59px 0fr 0fr;
   }
   100% {
-     grid-template-rows: 42.59px 1fr 0fr;
+    gap: 7px;
+    grid-template-rows: 42.59px 1fr 0fr;
   }
 }
 
@@ -232,11 +240,12 @@ body{
 /* top items */
 
 .top-items {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  margin-bottom: 14px;
+  transition: 0.6s ease;
 }
+
 .top-items div,
 .top-items div p {
   transition: 0.3s ease;
@@ -256,9 +265,12 @@ body{
 .counter{
   font-style: italic;
   font-size: var(--fs-todo-title);
+  padding: 0.3em 0.9em;
+  padding-left: 0;
   font-weight: var(--fw-light);
 }
 .plus {
+  justify-self: center;
   background-color: var(--clr-neutral-glass);
   
   border: var(--glass-border-thickness) var(--clr-neutral-border) solid;
@@ -277,9 +289,6 @@ body{
   padding: 0.3em 0.9em;
 
   transition: 10s ease;
-}
-.reset[inactive="true"] {
-  
 }
 .reset-text {
   font-size: var(--fs-todo-title);

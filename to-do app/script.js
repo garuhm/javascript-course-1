@@ -51,9 +51,11 @@ addNewTop.addEventListener("click", function(e) {
         addNewTop.classList.add("clicked")
         const todoContainer = document.querySelector(".todo-container");
         const reset = document.querySelector(".reset");
+        const topItems = document.querySelector(".top-items")
         
         setTimeout(() => {
             todoContainer.classList.add("adding");
+            topItems.classList.add("adding");
             reset.setAttribute("inactive", "true")
         }, 300)
     }
