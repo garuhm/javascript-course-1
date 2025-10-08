@@ -86,6 +86,7 @@ body {
   --clr-neutral-100 : #ffffff;
   --clr-neutral-glass: rgba(255, 255, 255, 0.15);
   --clr-neutral-border: rgba(255, 255, 255, 0.19);
+  --clr-neutral-glass-brighter: rgba(255, 255, 255, 0.65);
   --clr-neutral-text-input: rgba(0, 0, 0, 0.07);
   --clr-neutral-shadow: rgba(0, 0, 0, 0.10);
 
@@ -112,6 +113,21 @@ body {
   cursor: pointer;
 }
 
+.clicked {
+  animation: clickBtn 0.6s 1 ease forwards;
+}
+
+@keyframes clickBtn {
+  0% {
+  }
+  50%{
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* setup */
 * {
   color: var(--clr-neutral-100);
@@ -126,6 +142,8 @@ body{
   display: grid;
   justify-self: center;
   grid-template-rows: auto 1fr;
+
+  max-height: 90vh;
 
   gap: 2.5em;
 }
@@ -149,23 +167,23 @@ body{
   padding: 13px clamp(7px, 9.547vw, 61px);
 
   display: grid;
-  grid-template-rows: 42.59px 1fr auto;
+  grid-template-rows: 42.59px 1fr 0fr;
 
-  overflow: hidden;
-
-  height: fit-content;
+  height: max(72vh, fit-content);
+  max-height: 72vh;
   width: 93.6vw;
   max-width: 600px;
   transition: grid-template-rows 0.8s ease;
 }
 
 /* for reset and adding new */
-/* .todo-container:hover {
-  animation: test 2 1.6s ease forwards alternate;
-  
+.adding {
+  animation: addTransition 1 1.6s ease forwards; 
 }
-
-@keyframes test {
+.going-back {
+  animation: removeTransition 1 1.6s ease forwards; 
+}
+@keyframes addTransition {
   0% {
      grid-template-rows: 42.59px 1fr 0fr;
   }
@@ -175,14 +193,41 @@ body{
   100% {
      grid-template-rows: 42.59px 0fr 1fr;
   }
-} */
+} 
+@keyframes removeTransition {
+  0% {
+     grid-template-rows: 42.59px 0fr 1fr;
+  }
+  40% {
+     grid-template-rows: 42.59px 0fr 0fr;
+  }
+  100% {
+     grid-template-rows: 42.59px 1fr 0fr;
+  }
+}
 
 .todos-container {
   display: grid;
   grid-auto-rows: max-content;
 
-  overflow: hidden;
+  overflow-y: auto;
+  scroll-padding-left: 3px;
 }
+ .todos-container::-webkit-scrollbar {
+  width: 6px;
+} 
+ .todos-container::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: none;
+}
+ .todos-container::-webkit-scrollbar-thumb {
+  background: var(--clr-neutral-glass-brighter);
+  border-radius: 10px;
+}
+.todos-container::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-neutral-glass-brighter) !important;
+}
+
 
 /* top items */
 
@@ -196,12 +241,17 @@ body{
 .top-items div p {
   transition: 0.3s ease;
 }
-.top-items div:hover {
+.top-items div:not([inactive="true"]):hover {
   background-color: var(--clr-neutral-100);
 }
-.top-items div:hover p{
+.top-items div:not([inactive="true"]):hover p{
   color: var(--clr-accent-orange);
 }
+.top-items div[inactive="true"] {
+  cursor:not-allowed;
+  opacity: 0.7;
+}
+
 
 .counter{
   font-style: italic;
@@ -211,10 +261,10 @@ body{
 .plus {
   background-color: var(--clr-neutral-glass);
   
-  box-shadow: 0px 3px 10px 4px var(--clr-neutral-shadow);
   border: var(--glass-border-thickness) var(--clr-neutral-border) solid;
   padding: 0.2em 1.5em;
 }
+
 .plus-text {
   display: inline-block;
   line-height: 0.75em;
@@ -223,9 +273,13 @@ body{
 }
 .reset {
   background-color: var(--clr-neutral-glass);
-
   border: var(--glass-border-thickness) var(--clr-neutral-border) solid;
   padding: 0.3em 0.9em;
+
+  transition: 10s ease;
+}
+.reset[inactive="true"] {
+  
 }
 .reset-text {
   font-size: var(--fs-todo-title);
@@ -237,13 +291,14 @@ body{
   border-radius: var(--glass-border-radius);
 
   background-color: var(--clr-neutral-glass);
-  box-shadow: 0px 2px 10px 4px var(--clr-neutral-shadow);
 
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 0fr;
   gap: 0.4em;
   align-items: start;
+
+  overflow: hidden;
 
   height: fit-content;
 
@@ -285,13 +340,13 @@ body{
 }
 
 /* for vertical overflow, handled by js */
-.todo:not([edit-mode="true"]):hover {
+.todo:not([class="todo editing"]):hover {
   grid-template-rows: 1fr;
 }
-.todo:not([edit-mode="true"]):hover .todo-title-container{
+.todo:not([class="todo editing"]):hover .todo-title-container{
   height: 100%
 }
-.todo:not([edit-mode="true"]):hover .todo-title-container p {
+.todo:not([class="todo editing"]):hover .todo-title-container p {
   margin-bottom: 14px;
 }
 
@@ -312,13 +367,13 @@ body{
 }
 
 /* for editing */
-/* .todo[edit-mode="true"] .todo-modify #delete {
+.todo.editing .todo-modify #delete {
   transform: scaleY(0);
 }
-.todo[edit-mode="true"] .todo-modify #edit {
+.todo.editing .todo-modify #edit {
   opacity: 0.43;
   translate: 0px 14.5px;
-} */
+}
 
 /* add todo */
 .add-todo {
@@ -369,7 +424,9 @@ body{
   border-radius: 0.8em;
   border: 3px solid var(--clr-neutral-100);
   padding: 0.08em 0.5em;
-  box-shadow: 0px 2px 10px 2px var(--clr-neutral-shadow);
+
+
+  overflow: hidden;
 
 }
 .add-buttons .btn p {

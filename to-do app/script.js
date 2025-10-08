@@ -45,6 +45,41 @@
 //     containerDiv.appendChild(todoDiv)
 // })
 
+const addNewTop = document.querySelector(".plus");
+addNewTop.addEventListener("click", function(e) {
+    if(!addNewTop.classList.contains("clicked")){
+        addNewTop.classList.add("clicked")
+        const todoContainer = document.querySelector(".todo-container");
+        const reset = document.querySelector(".reset");
+        
+        setTimeout(() => {
+            todoContainer.classList.add("adding");
+            reset.setAttribute("inactive", "true")
+        }, 300)
+    }
+})
+
+const cancelNew = document.querySelector(".add-buttons .cancel");
+cancelNew.addEventListener("click", function(e) {
+    cancelNew.classList.add("clicked");
+    const reset = document.querySelector(".reset");
+
+    setTimeout(() => {
+        todoContainer.classList.remove("adding");
+        todoContainer.classList.add("going-back");
+        reset.setAttribute("inactive", "false");
+        addNewTop.classList.remove("clicked");
+    }, 300)
+
+    setTimeout(() => {
+        todoContainer.getAnimations().forEach(anim => anim.cancel())
+        todoContainer.classList.remove("going-back");
+        cancelNew.classList.remove("clicked")
+    }, 2000)
+})
+
+const todoContainer = document.querySelector(".todo-container")
+
 const doneCheckbox = document.querySelectorAll(".checkbox")
 doneCheckbox.forEach((checkbox) => {
     checkbox.addEventListener("click", function(e) {
@@ -58,6 +93,16 @@ doneCheckbox.forEach((checkbox) => {
         } else {
             checkboxImage.setAttribute("src", "images/checkbox.svg")
             checkboxImage.setAttribute("clicked", "false")
+        }
+    })
+})
+
+const editEntry = document.querySelectorAll(".todo-modify #edit");
+editEntry.forEach((editBtn) => {
+    editBtn.addEventListener("click", function(e) {
+        const todo = editBtn.parentElement.parentElement;
+        if(!todo.classList.contains("editing")) {
+            todo.classList.add("editing");
         }
     })
 })
