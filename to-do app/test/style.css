@@ -96,7 +96,6 @@ body {
   --ff-primary: "Nunito", sans-serif;
 
   --fw-light: 100;
-  --fw-p: 300;
   --fw-primary: 600;
 
   --fs-title: 64px;
@@ -220,7 +219,6 @@ body{
   grid-auto-rows: max-content;
 
   overflow-y: auto;
-  overflow-x: hidden;
   scroll-padding-left: 3px;
 }
  .todos-container::-webkit-scrollbar {
@@ -261,7 +259,6 @@ body{
 .top-items div[inactive="true"] {
   cursor:not-allowed;
   opacity: 0.7;
-  transition: 0.8s ease;
 }
 
 
@@ -291,7 +288,7 @@ body{
   border: var(--glass-border-thickness) var(--clr-neutral-border) solid;
   padding: 0.3em 0.9em;
 
-  transition: 0.8s ease;
+  transition: 10s ease;
 }
 .reset-text {
   font-size: var(--fs-todo-title);
@@ -300,44 +297,27 @@ body{
 /* to do entry */
 
 .todo {
-  display: grid;;
   border-radius: var(--glass-border-radius);
-  grid-template-rows: 0fr 0fr;
+
+  background-color: var(--clr-neutral-glass);
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 0fr;
+  gap: 0.4em;
+  align-items: start;
 
   overflow: hidden;
-  
-  background-color: var(--clr-neutral-glass);
+
+  height: fit-content;
+
   padding: 15px 23px;
   margin-bottom: 14px;
   border: var(--glass-border-thickness) var(--clr-neutral-border) solid;
 
-  height: fit-content;
-
   transition: 0.8s ease;
 }
-
-/* .deleting {
-  animation: deleting 1s ease-out 1 forwards;
-}
-@keyframes deleting {
-  100% {
-    transform: translateY(-125%);
-    opacity: 0;
-  }
-} */
-
-.todo-info {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: 0fr;
-  gap: 6px;
-  align-items: start;
-
-  height: fit-content;
-
-  transition: 0.8s ease;
-}
-.todo-info div:not([class="todo-modify-btns"]) {
+.todo div:not([class="todo-modify"]) {
   translate: 0 15px;
 }
 
@@ -350,9 +330,6 @@ body{
   width: 16px;
   object-fit: contain;
   cursor: pointer;
-}
-.checkbox[clicked="true"] + .todo-title-container p {
-  text-decoration: line-through;
 }
 
 .todo-title-container {
@@ -372,24 +349,23 @@ body{
 }
 
 /* for vertical overflow, handled by js */
-.todo:not([class="todo editing"]):not([cancel-edit="true"]):not([moving-up="true"]):not([deleting="true"]):hover {
-  grid-template-rows: 1fr 0fr;
-}
-.todo:not([class="todo editing"]):not([cancel-edit="true"]):not([moving-up="true"]):not([deleting="true"]):hover .todo-info{
+.todo:not([class="todo editing"]):hover {
   grid-template-rows: 1fr;
 }
-.todo:not([class="todo editing"]):not([cancel-edit="true"]):not([moving-up="true"]):not([deleting="true"]):hover .todo-info .todo-title-container{
-  height: 100%;
+.todo:not([class="todo editing"]):hover .todo-title-container{
+  height: 100%
+}
+.todo:not([class="todo editing"]):hover .todo-title-container p {
   margin-bottom: 14px;
 }
 
-.todo-modify-btns {
+.todo-modify {
   display: grid;
   grid-template-rows: 1fr 1fr;
   gap: 0.9em;
   transform: 0.8s ease;
 }
-.todo-modify-btns img {
+.todo-modify img {
   height: 18px;
   object-fit: contain;
   cursor: pointer;
@@ -400,94 +376,12 @@ body{
 }
 
 /* for editing */
-.todo-modify{
-  overflow: hidden;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 1em;
-}
-.todo-modify input {
-  width: 100%;
-  font-size: var(--fs-todo-edit);
-  font-weight: var(--fw-p);
-
-  border: none;
-  outline: none;
-  border-radius: 0.925em;
-
-  height: 1.3em;
-  padding: 1.1em 0.3em;
-  
-  background-color: var(--clr-neutral-text-input);
-}
-
-.todo-edit-form-btns{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 27px;
-}
-.todo-edit-form-btns .btn, .todo-edit-form-btns .btn p {
-  transition: 0.3s ease;
-}
-.todo-edit-form-btns .btn {
-  background-color: var(--clr-neutral-100);
-
-  border-radius: 0.8em;
-  border: 3px solid var(--clr-neutral-100);
-  padding: 0em 0.5em;
-
-
-  overflow: hidden;
-
-}
-.todo-edit-form-btns .btn p {
-  color: var(--clr-accent-orange);
-  font-size: var(--fs-todo-title);
-}
-.todo-edit-form-btns .btn:hover {
-  background-color: var(--clr-neutral-glass);
-  border: 3px solid var(--clr-neutral-border);
-}
-.todo-edit-form-btns .btn:hover p {
-  color: var(--clr-neutral-100);
-}
-
-.todo.editing {
-  /* grid-template-rows: auto 1fr; */
-  animation: showEdit 1.4s ease 1 forwards;
-}
-.todo[cancel-edit="true"] {
-  animation: hideEdit 1.4s ease 1 forwards;
-}
-@keyframes showEdit {
-  33% {
-    grid-template-rows: max-content 0fr;
-  } 
-  100% {
-    grid-template-rows: max-content 1fr;
-  }
-}
-@keyframes hideEdit {
-  0% {
-    grid-template-rows: max-content 1fr;
-  } 
-  66% {
-    grid-template-rows: max-content 0fr;
-  }
-}
-
-
-.todo.editing .todo-info{
-  grid-template-rows: 0fr;
-}
-.todo.editing .todo-info .todo-modify-btns #delete {
+.todo.editing .todo-modify #delete {
   transform: scaleY(0);
 }
-.todo.editing .todo-info .todo-modify-btns #edit {
+.todo.editing .todo-modify #edit {
   opacity: 0.43;
   translate: 0px 14.5px;
-  cursor: not-allowed;
 }
 
 /* add todo */
@@ -515,9 +409,6 @@ body{
   border: none;
   outline: none;
   border-radius: 0.925em;
-
-  font-size: var(--fs-todo-edit);
-  font-weight: var(--fw-p);
   
   background-color: var(--clr-neutral-text-input);
   resize: none;
@@ -542,6 +433,7 @@ body{
   border-radius: 0.8em;
   border: 3px solid var(--clr-neutral-100);
   padding: 0.08em 0.5em;
+
 
   overflow: hidden;
 

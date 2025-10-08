@@ -28,7 +28,7 @@
 //     titleDiv.appendChild(title)
 
 //     const modify = document.createElement('div');
-//     modify.classList.add('todo-modify');
+//     modify.classList.add('todo-modify-btns');
 //     const editImg = document.createElement('img');
 //     editImg.src = "images/edit.svg";
 //     editImg.id = "edit";
@@ -71,7 +71,7 @@ cancelNew.addEventListener("click", function(e) {
         todoContainer.classList.add("going-back");
         reset.setAttribute("inactive", "false");
         addNewTop.classList.remove("clicked");
-    }, 300)
+    }, 250)
 
     setTimeout(() => {
         todoContainer.getAnimations().forEach(anim => anim.cancel())
@@ -87,24 +87,132 @@ doneCheckbox.forEach((checkbox) => {
     checkbox.addEventListener("click", function(e) {
         const checkboxImage = checkbox.querySelector("img");
         const clicked = checkboxImage.getAttribute("clicked");
-        console.log(clicked)
 
         if(clicked == "false") {
             checkboxImage.setAttribute("src", "images/checkbox-checked.svg")
             checkboxImage.setAttribute("clicked", "true")
+            checkbox.setAttribute("clicked", "true")
         } else {
             checkboxImage.setAttribute("src", "images/checkbox.svg")
             checkboxImage.setAttribute("clicked", "false")
+            checkbox.setAttribute("clicked", "false")
         }
     })
 })
 
-const editEntry = document.querySelectorAll(".todo-modify #edit");
+const editEntry = document.querySelectorAll(".todo-modify-btns #edit");
 editEntry.forEach((editBtn) => {
     editBtn.addEventListener("click", function(e) {
-        const todo = editBtn.parentElement.parentElement;
+        const todo = editBtn.parentElement.parentElement.parentElement;
         if(!todo.classList.contains("editing")) {
             todo.classList.add("editing");
         }
+    })
+})
+
+const deleteEntry = document.querySelectorAll(".todo-modify-btns #delete");
+deleteEntry.forEach((deleteBtn) => {
+    deleteBtn.addEventListener("click", function(e) {
+        const todo = deleteBtn.parentElement.parentElement.parentElement;
+        const moveUpHeight = todo.offsetHeight
+
+        const duration = 1600;
+
+        let moveUpKeyframes = [
+            {transform: `translateY(calc(-${moveUpHeight}px - 14px))`}
+        ]
+        const moveUpAnimation = {
+            duration: duration,
+            iterations: 1,
+            easing: "ease",
+            fill: "forwards"
+        }
+
+        let deleteKeyframes = [
+            {transform: `translateY(calc(-${moveUpHeight}px - 14px))`, opacity: "0"},
+        ]
+        const deleteAnimation = {
+            duration: duration,
+            iterations: 1,
+            easing: "ease",
+            fill: "forwards"
+        }
+        
+        const todos = todo.parentElement;
+        const todosHeight = todos.offsetHeight;
+        const resizeHeight= todosHeight - moveUpHeight;
+        
+        const resizeKeyframes = [
+            {height: `${todosHeight}px`},
+            {height: `calc(${resizeHeight}px - 15px)`}
+        ]
+        const resizeAnimation = {
+            duration: duration,
+            iterations: 1,
+            easing: "ease",
+            fill: "forwards"
+        }
+        
+        todo.setAttribute("deleting", "true")
+        const notDeleted = todos.querySelectorAll(".todo");
+        
+        let below = -1;
+        for(let i = 0; i < notDeleted.length; i++){
+            if(notDeleted[i].hasAttribute("deleting")) {
+                below = i;
+                if(moveUpHeight > 86.39){
+                    console.log("here")
+                    const todoInfo = todo.querySelector(".todo-info");
+                    const todoTitleContainer = todoInfo.querySelector(".todo-title-container");
+
+                    todo.style.gridTemplateRows = "1fr 0fr"
+                    todoInfo.style.gridTemplateRows = "1fr";
+                    todoTitleContainer.style.height = "100%";
+                    todoTitleContainer.style.marginBottom = "14px";
+                }
+                todo.animate(deleteKeyframes, deleteAnimation)
+                todos.animate(resizeKeyframes, resizeAnimation)
+            }
+            if(below !== -1 && i > below){
+                if(i == notDeleted.length-1){
+                    moveUpKeyframes = {transform: `translateY(calc(-${moveUpHeight}px - 14px))`, marginBottom: "0px"}
+                }
+                notDeleted[i].animate(moveUpKeyframes, moveUpAnimation)
+                notDeleted[i].setAttribute("moving-up", "true")
+            }
+        }      
+
+        setTimeout(() => {
+            
+            notDeleted.forEach((notDeletedTodo) => {
+                if(!notDeletedTodo.classList.contains("deleting")) {
+                    notDeletedTodo.removeAttribute("moving-up")
+                    notDeletedTodo.getAnimations().forEach(anim => anim.cancel())
+                }
+            });
+            todos.getAnimations().forEach(anim => anim.cancel())
+            todo.remove();
+        }, duration)
+    })
+})
+
+const cancelEditBtns = document.querySelectorAll(".todo-edit-form-btns .cancel");
+cancelEditBtns.forEach((cancelEditBtn) => {
+    cancelEditBtn.addEventListener("click", function(e) {
+        cancelEditBtn.classList.add("clicked");
+
+        setTimeout(() => {
+            const todo = cancelEditBtn.parentElement.parentElement.parentElement;
+            todo.getAnimations().forEach(anim => anim.cancel())
+            todo.classList.remove("editing");
+            todo.setAttribute("cancel-edit", 'true');
+    
+            setTimeout(() => {
+                todo.getAnimations().forEach(anim => anim.cancel())
+                todo.setAttribute("cancel-edit", "false");
+                cancelEditBtn.classList.remove("clicked");
+            }, 1500)
+        }, 250)
+
     })
 })

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+
+  <title>To-do List App</title>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="wrapper">
+    <p class="title">To-do List</p>
+    
+    <div class="todo-container">
+      <div class="top-items">
+        <!-- add counter, +. and reset button -->
+        <p class="counter">4 items</p>
+        <div class="plus | btn">
+          <p class="plus-text">+</p>
+        </div>
+        <div class="reset | btn">
+          <p class="reset-text">Reset</p>
+        </div>
+      </div>
+
+      <div class="todos-container">
+        <div class="todo">
+          <div class="checkbox">
+            <img src="images/checkbox.svg" alt="" id="checkbox" clicked="false"> 
+          </div>
+          <div class="todo-title-container">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem, sapiente illum quo voluptatibus quasi soluta, qui temporibus debitis quia dolor eaque repellendus. Vitae, voluptatum possimus! Laborum voluptate obcaecati hic!</p>
+          </div>
+          <div class="todo-modify">
+            <img src="images/edit.svg" alt="" id="edit">
+            <img src="images/delete.svg" alt="" id="delete">
+          </div>
+          <!-- add text area stuff here (area and 2 buttons) -->
+        </div>  
+        <div class="todo">
+          <div class="checkbox">
+            <img src="images/checkbox.svg" alt="" id="checkbox" clicked="false"> 
+          </div>
+          <div class="todo-title-container">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem, sapiente illum quo voluptatibus quasi soluta, qui temporibus debitis quia dolor eaque repellendus. Vitae, voluptatum possimus! Laborum voluptate obcaecati hic!</p>
+          </div>
+          <div class="todo-modify">
+            <img src="images/edit.svg" alt="" id="edit">
+            <img src="images/delete.svg" alt="" id="delete">
+          </div>
+          <!-- add text area stuff here (area and 2 buttons) -->
+        </div>  
+        
+      </div>
+
+      <div class="add-todo">
+        <p class="add-todo-title">New entry</p>
+        <div class="name">
+          <form action="">
+            <label for="name-input" class="name-label">Name:</label>
+            <input type="text" name="name-input" id="name-input">
+          </form>
+        </div>
+        <div class="add-buttons">
+          <div class="add | btn">
+            <p>Add</p>
+          </div>
+          <div class="cancel | btn">
+            <p>Cancel</p>
+          </div>
+        </div>  
+      </div>
+    </div>
+    
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
