@@ -67,5 +67,13 @@ addToCartsBtns.forEach((btn) => {
                 quantity: 1
             })
         }
+
+        let cartQuantity = 0;
+        cart.forEach((item) => {
+            cartQuantity += item.quantity
+        })
+
+        const cartAmountText = document.querySelector(".cart-link .cart-quantity")
+        cartAmountText.innerHTML = cartQuantity
     })
 })
