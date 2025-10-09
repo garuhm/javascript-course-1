@@ -41,14 +41,12 @@ function addTodoToHTML(todosContainer, entry){
         deleteBtn.classList.add("clicked");
         setTimeout(() => {
             deleteTodo(document.getElementById(`${entry.id}`))
-            todosContainer.removeChild(document.getElementById(`${entry.id}`))
         }, 300)
     })
 }
 
 function addTodo() {
     const todoName = document.querySelector("#todo-name-input").value
-    console.log(todoName)
     const todoDate = document.querySelector("#todo-date-input").value.replaceAll("-", "/")
     if(todoName && todoDate){
         const newTodo = {
@@ -68,7 +66,6 @@ function addTodo() {
 
 function deleteTodo(todo) {
     const todoInList = todoList.find(entry => entry.id == todo.id);
-    console.log(todo)
     const index = todoList.indexOf(todoInList);
     todoList.splice(index, 1);
 

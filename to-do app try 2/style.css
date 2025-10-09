@@ -135,6 +135,7 @@ body{
 .todos-wrapper {
   background-color: var(--clr-neutral-glass);
 
+  box-shadow: 0px 3px 10px 4px var(--clr-neutral-shadow);
   border: var(--clr-neutral-border) 3px solid;
   border-radius: var(--glass-border-radius);
   padding: 0.6em 0.8em;
@@ -152,6 +153,7 @@ body{
 
   border-radius: var(--glass-border-radius);
   border: solid var(--clr-neutral-border) 0.2em;
+  box-shadow: 0px 3px 10px 2px var(--clr-neutral-shadow);
   
   display: grid;
   gap: 0.8em;
@@ -207,6 +209,7 @@ body{
 }
 .create-todo * {
   background-color: var(--clr-neutral-glass);
+  box-shadow: 0px 3px 10px 2px var(--clr-neutral-shadow);
 
   border-radius: var(--glass-border-radius);
   padding: 0.2em 0.5em;
@@ -252,6 +255,7 @@ body{
   padding: 0.3em 0.3em;
   border: var(--clr-neutral-border)3px solid;
   border-radius: var(--glass-border-radius);
+  box-shadow: 0px 3px 10px 2px var(--clr-neutral-shadow);
 
   display: grid;
   grid-template-columns: 2.6fr 1.7fr;
@@ -260,12 +264,16 @@ body{
 .todo-name {
   max-width: 100%;
 }
+.todo-date {
+  translate: 3% 0;
+}
 #delete-todo-btn {
   background-color: var(--clr-neutral-glass);
 
   border-radius: var(--glass-border-radius);
   padding: 0.3em 0.5em;
 
+  box-shadow: 0px 3px 10px 2px var(--clr-neutral-shadow);
   border: var(--clr-neutral-border)3px solid;
   cursor: pointer;
   transition: 0.4s ease;
@@ -310,6 +318,7 @@ body{
     grid-template-columns: 1fr 1fr;
   }
   .todo-date {
+    translate: 0 0;
     text-align: end;
   }
 }
