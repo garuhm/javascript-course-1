@@ -25,6 +25,7 @@ export function loadFromStorage() {
 }
 
 export function updateDeliveryOption(productId, optionId) {
+    console.log(cart)
     const product = cart.find((item) => item.productId == productId)
     product.deliveryOptionId = optionId
 

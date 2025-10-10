@@ -10,6 +10,7 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"
 
 function updateCartHTML() {
   const orderSummary = document.querySelector(".order-summary")
+  
   orderSummary.innerHTML = ""
     cart.forEach((item) => {
       const itemData = products.find((product) => product.id == item.productId)
@@ -34,14 +35,14 @@ function updateCartHTML() {
                   <div class="product-price">
                     $${formatCurrency(itemData.priceCents)}
                   </div>
-                  <div class="product-quantity">
+                  <div class="product-quantity quantity-id-${itemData.id}">
                     <span>
                       Quantity: <span class="quantity-label">${item.quantity}</span>
                     </span>
                     <span class="update-quantity-link link-primary">
                       Update
                     </span>
-                    <span class="delete-quantity-link link-primary" data-product-id="${itemData.id}">
+                    <span class="delete-quantity-link link-primary delete-id-${itemData.id}" data-product-id="${itemData.id}">
                       Delete
                     </span>
                   </div>
@@ -91,7 +92,7 @@ export function renderOrderSummary() {
     link.addEventListener("click", function(e) {
       const productId = link.dataset.productId
   
-      cart.splice(cart.indexOf(cart.find((product) => product.id == productId)), 1)
+      cart.splice(cart.indexOf(cart.find((product) => product.productId == productId)), 1)
       save()
   
       const cartItem = document.querySelector(`.id-${productId}`)
@@ -103,6 +104,8 @@ export function renderOrderSummary() {
   document.querySelectorAll(".delivery-option").forEach((option) => {
     option.addEventListener(("click"), function(e) {
       const {productId, deliveryOptionId} = option.dataset
+
+      console.log(productId)
   
       updateDeliveryOption(productId, deliveryOptionId)
       renderOrderSummary()
