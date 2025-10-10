@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, save } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 import { formatCurrency } from "./utils/money.js";
@@ -97,7 +97,8 @@ deleteLinks.forEach((link) => {
     const productId = link.dataset.productId
 
     cart.splice(cart.indexOf(cart.find((product) => product.id == productId)), 1)
-    
+    save()
+
     const cartItem = document.querySelector(`.id-${productId}`)
     cartItem.remove()
   })
