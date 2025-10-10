@@ -9,7 +9,7 @@ function updateCartHTML() {
     cart.forEach((item) => {
       const itemData = products.find((product) => product.id == item.productId)
   
-      const itemHtml = `<div class="cart-item-container">
+      const itemHtml = `<div class="cart-item-container id-${itemData.id}">
               <div class="delivery-date">
                 Delivery date: Tuesday, June 21
               </div>
@@ -95,9 +95,10 @@ const deleteLinks = document.querySelectorAll(".delete-quantity-link")
 deleteLinks.forEach((link) => {
   link.addEventListener("click", function(e) {
     const productId = link.dataset.productId
-    console.log(productId)
 
     cart.splice(cart.indexOf(cart.find((product) => product.id == productId)), 1)
-    updateCartHTML()
+    
+    const cartItem = document.querySelector(`.id-${productId}`)
+    cartItem.remove()
   })
 })
