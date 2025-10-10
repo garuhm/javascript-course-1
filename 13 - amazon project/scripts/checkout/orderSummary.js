@@ -8,7 +8,6 @@ import { formatCurrency } from "../utils/money.js";
 
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"
 
-
 function updateCartHTML() {
   const orderSummary = document.querySelector(".order-summary")
   orderSummary.innerHTML = ""
