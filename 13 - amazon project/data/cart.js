@@ -11,7 +11,8 @@ export function addToCart(productId) {
     } else { // else, if not in cart, add to cart
         cart.push({
             productId: productId,
-            quantity: 1
+            quantity: 1,
+            deliveryOptionId: 1,
         })
     }
 

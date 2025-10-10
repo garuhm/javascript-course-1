@@ -11,7 +11,7 @@ function updateCartText() {
     })
 
     const cartAmountText = document.querySelector(".cart-link .cart-quantity")
-    cartAmountText.innerHTML = cartQuantity
+    cartAmountText.innerHTML = cartQuantity > 0 ? cartQuantity : ""
 }
 
 // everything else
