@@ -81,25 +81,30 @@ function deliveryOptionsHTML(item) {
   })
 }
 
-updateCartHTML()
-
-const deleteLinks = document.querySelectorAll(".delete-quantity-link")
-deleteLinks.forEach((link) => {
-  link.addEventListener("click", function(e) {
-    const productId = link.dataset.productId
-
-    cart.splice(cart.indexOf(cart.find((product) => product.id == productId)), 1)
-    save()
-
-    const cartItem = document.querySelector(`.id-${productId}`)
-    cartItem.remove()
+function renderOrderSummary() {
+  updateCartHTML()
+  
+  const deleteLinks = document.querySelectorAll(".delete-quantity-link")
+  deleteLinks.forEach((link) => {
+    link.addEventListener("click", function(e) {
+      const productId = link.dataset.productId
+  
+      cart.splice(cart.indexOf(cart.find((product) => product.id == productId)), 1)
+      save()
+  
+      const cartItem = document.querySelector(`.id-${productId}`)
+      cartItem.remove()
+    })
   })
-})
-
-document.querySelectorAll(".delivery-option").forEach((option) => {
-  option.addEventListener(("click"), function(e) {
-    const {productId, deliveryOptionId} = option.dataset
-    
-    updateDeliveryOption(productId, deliveryOptionId)
+  
+  document.querySelectorAll(".delivery-option").forEach((option) => {
+    option.addEventListener(("click"), function(e) {
+      const {productId, deliveryOptionId} = option.dataset
+  
+      updateDeliveryOption(productId, deliveryOptionId)
+      renderOrderSummary()
+    })
   })
-})
+}
+
+renderOrderSummary()
