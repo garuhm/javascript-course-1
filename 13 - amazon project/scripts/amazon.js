@@ -75,3 +75,5 @@ addToCartsBtns.forEach((btn) => {
         updateCartText()
     })
 })
+
+updateCartText()
