@@ -1,9 +1,10 @@
 import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
+import { formatCurrency } from "./utils/money.js";
+
 function updateCartHTML(item) {
     const itemData = products.find((product) => product.id == item.productId)
-    const itemIndex = products.indexOf(itemData) + 1;
 
     const itemHtml = `<div class="cart-item-container">
             <div class="delivery-date">
@@ -19,7 +20,7 @@ function updateCartHTML(item) {
                   ${itemData.name}
                 </div>
                 <div class="product-price">
-                  $${(itemData.priceCents / 100).toFixed(2)}
+                  $${formatCurrency(itemData.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -41,7 +42,7 @@ function updateCartHTML(item) {
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-${itemIndex}">
+                    name="delivery-option-${itemData.id}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
@@ -54,7 +55,7 @@ function updateCartHTML(item) {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-${itemIndex}">
+                    name="delivery-option-${itemData.id}">
                   <div>
                     <div class="delivery-option-date">
                       Wednesday, June 15
@@ -67,7 +68,7 @@ function updateCartHTML(item) {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-${itemIndex}">
+                    name="delivery-option-${itemData.id}">
                   <div>
                     <div class="delivery-option-date">
                       Monday, June 13
