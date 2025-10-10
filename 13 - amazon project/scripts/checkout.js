@@ -1,4 +1,4 @@
-import { cart, save } from "../data/cart.js";
+import { cart, save, updateDeliveryOption } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { deliveryOptions } from "../data/deliveryOptions.js";
 
@@ -14,7 +14,7 @@ function updateCartHTML() {
       const deliveryOptionId = item.deliveryOptionId
 
       const today = dayjs()
-      const deliveryDate = today.add(deliveryOptions.find((option) => option.id == deliveryOptionId).deliveryTIme, "days").format("dddd, MMMM D")
+      const deliveryDate = today.add(deliveryOptions.find((option) => option.id == deliveryOptionId).deliveryTime, "days").format("dddd, MMMM D")
   
       const itemHtml = `<div class="cart-item-container id-${itemData.id}">
               <div class="delivery-date">
@@ -60,12 +60,12 @@ function updateCartHTML() {
 function deliveryOptionsHTML(item) {
   deliveryOptions.forEach((option) => {
     const today = dayjs()
-    const deliveryDate = today.add(option.deliveryTIme, "days").format("dddd, MMMM D")
+    const deliveryDate = today.add(option.deliveryTime, "days").format("dddd, MMMM D")
 
-    const shippingHTML = `<div class="delivery-option">
+    const shippingHTML = `<div class="delivery-option" data-product-id="${item.productId}" data-delivery-option-id="${option.id}">
                     <input type="radio" ${option.id == item.deliveryOptionId ? "checked" : ""}
                       class="delivery-option-input"
-                      name="delivery-option-${item.productId}">
+                      name="delivery-option-${item.productId}" >
                     <div>
                       <div class="delivery-option-date">
                         ${deliveryDate}
@@ -93,5 +93,13 @@ deleteLinks.forEach((link) => {
 
     const cartItem = document.querySelector(`.id-${productId}`)
     cartItem.remove()
+  })
+})
+
+document.querySelectorAll(".delivery-option").forEach((option) => {
+  option.addEventListener(("click"), function(e) {
+    const {productId, deliveryOptionId} = option.dataset
+    
+    updateDeliveryOption(productId, deliveryOptionId)
   })
 })

@@ -18,3 +18,10 @@ export function addToCart(productId) {
 
    save()
 }
+
+export function updateDeliveryOption(productId, optionId) {
+    const product = cart.find((item) => item.productId == productId)
+    product.deliveryOptionId = optionId
+
+    save()
+}
